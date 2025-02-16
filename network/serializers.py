@@ -23,7 +23,6 @@ class NetworkNodeSerializer(serializers.ModelSerializer):
             "debt",
             "created_at",
             "level",
-            "level_display",
         ]
         read_only_fields = ["debt"]
 

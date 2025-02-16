@@ -1,8 +1,9 @@
-from rest_framework import viewsets
+from rest_framework import filters, viewsets
+
+from users.permissions import IsActiveStaff
+
 from .models import NetworkNode, Product
 from .serializers import NetworkNodeSerializer, ProductSerializer
-from rest_framework import filters
-from users.permissions import IsActiveStaff
 
 
 class NetworkNodeViewSet(viewsets.ModelViewSet):

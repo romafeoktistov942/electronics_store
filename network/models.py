@@ -70,21 +70,6 @@ class NetworkNode(models.Model):
             supplier = supplier.supplier
         return level
 
-    @property
-    def level_display(self):
-        """
-        Возвращает текстовое представление уровня иерархии звена сети.
-
-        Returns:
-            str: Текстовое представление уровня иерархии.
-        """
-        levels = ["Завод", "Розничная сеть", "Индивидуальный предприниматель"]
-        return (
-            levels[self.level]
-            if self.level < len(levels)
-            else "Неизвестный уровень"
-        )
-
 
 class Product(models.Model):
     name = models.CharField(

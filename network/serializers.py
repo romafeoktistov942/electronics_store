@@ -4,6 +4,11 @@ from .models import NetworkNode, Product
 
 
 class NetworkNodeSerializer(serializers.ModelSerializer):
+    level = serializers.IntegerField(source="level", read_only=True)
+    level_display = serializers.CharField(
+        source="level_display", read_only=True
+    )
+
     class Meta:
         model = NetworkNode
         fields = [
@@ -17,6 +22,8 @@ class NetworkNodeSerializer(serializers.ModelSerializer):
             "supplier",
             "debt",
             "created_at",
+            "level",
+            "level_display",
         ]
         read_only_fields = ["debt"]
 
@@ -24,4 +31,4 @@ class NetworkNodeSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = ["id", "name", "model", "release_date", "network_node"]

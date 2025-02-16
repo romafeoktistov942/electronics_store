@@ -51,6 +51,40 @@ class NetworkNode(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def level(self):
+        """
+        Вычисляет уровень иерархии звена сети.
+
+        Уровень определяется количеством звеньев в цепочке поставщиков.
+        Завод всегда находится на уровне 0, а уровень остальных звеньев
+        зависит от их положения в иерархии.
+
+        Returns:
+            int: Уровень иерархии звена сети.
+        """
+        level = 0
+        supplier = self.supplier
+        while supplier:
+            level += 1
+            supplier = supplier.supplier
+        return level
+
+    @property
+    def level_display(self):
+        """
+        Возвращает текстовое представление уровня иерархии звена сети.
+
+        Returns:
+            str: Текстовое представление уровня иерархии.
+        """
+        levels = ["Завод", "Розничная сеть", "Индивидуальный предприниматель"]
+        return (
+            levels[self.level]
+            if self.level < len(levels)
+            else "Неизвестный уровень"
+        )
+
 
 class Product(models.Model):
     name = models.CharField(
